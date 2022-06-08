@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.25" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheMovieVerse.DB\TheMovieVerse.DB.csproj" />
+    <ProjectReference Include="..\TheMovieVerse.Model\TheMovieVerse.Model.csproj" />
+    <ProjectReference Include="..\TheMovieVerse.ViewModel\TheMovieVerse.ViewModel.csproj" />
+  </ItemGroup>
+
+</Project>
