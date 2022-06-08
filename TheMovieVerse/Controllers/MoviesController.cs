@@ -21,6 +21,7 @@ namespace TheMovieVerse.Controllers
         private readonly IMapper _mapper;
         private readonly IMovieService _movieService;
 
+
         public MoviesController(MovieDbContext context, IMapper mapper, IMovieService movieService)
         {
             _context = context;
@@ -29,7 +30,6 @@ namespace TheMovieVerse.Controllers
         }
 
 
-        
         [HttpGet("GetAllMovies")]
         public async Task<ActionResult<List<MovieView>>> GetMovies()
         {
@@ -62,6 +62,7 @@ namespace TheMovieVerse.Controllers
             }
         }
 
+
         [HttpGet("GetMovieByGenre/{MovieGenre}")]
         public async Task<ActionResult<List<MovieTitleView>>> GetMovieByGenre(string MovieGenre)
         {
@@ -81,6 +82,7 @@ namespace TheMovieVerse.Controllers
             
         }
 
+
         [HttpGet("GetMovieByName/{MovieTitle}")]
         public async Task<ActionResult<List<MovieDetailView>>> GetMovieByName(string MovieTitle)
         {
@@ -99,6 +101,7 @@ namespace TheMovieVerse.Controllers
             }
             
         }
+
 
         [HttpGet("GetMovieById{movieId}")]
         public async Task<ActionResult<List<MovieDetailView>>> GetMovieById(long movieId)
@@ -120,12 +123,16 @@ namespace TheMovieVerse.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while connecting to the database");
             }
         }
+
+
         [HttpPut("UpdateMovieUsingId{id}")]
         public async Task<long> PutMovie(EditMovieView movie)
         {
             long mid = await _movieService.PutMovie(movie);
             return mid;
         }
+
+
         [HttpPost("AddMovies")]
         public async Task<ActionResult<List<Movie>>> PostMovie(MovieView movie)
         {
@@ -149,6 +156,7 @@ namespace TheMovieVerse.Controllers
 
         }
 
+
         [HttpDelete("DeleteAMovie{id}")]
         public async Task<ActionResult<MovieView>> DeleteMovie(long id)
         {
@@ -170,8 +178,7 @@ namespace TheMovieVerse.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error while connecting to the database");
             }
-}
-
+        }
 
 
 

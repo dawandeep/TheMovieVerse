@@ -7,14 +7,21 @@ namespace TheMovieVerse.Model
 {
     public class Actor
     {
+        public Actor()
+        {
+            this.MovieActors = new HashSet<MovieActor>();
+        }
+
         [Key]
         [Required]
-        public long Id { get; set; }
+        public long ActorId { get; set; }
+
         [MaxLength(50)]
         public string FirstName { get; set; }
+
         [MaxLength(50)]
         public string LastName { get; set; }
-        public long MovieId { get; set; }
 
+        public virtual ICollection<MovieActor> MovieActors { get; set; }
     }
 }

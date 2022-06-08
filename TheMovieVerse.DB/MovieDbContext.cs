@@ -25,7 +25,8 @@ namespace TheMovieVerse.DB
         public DbSet<ShowSchedule> ShowSchedules { get; set; }
         public DbSet<Actor> Actors { get; set; }
         public DbSet<MovieBooking> MovieBookings { get; set; }
+        public DbSet<MovieActor> MovieActors { get; set; }
 
-        
+
     }
 }

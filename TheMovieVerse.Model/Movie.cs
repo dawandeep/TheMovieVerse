@@ -8,15 +8,18 @@ namespace TheMovieVerse.Model
 {
     public class Movie
     {
+        public Movie()
+        {
+            this.MovieActors = new HashSet<MovieActor>();
+        }
+
         [Key]
         [Required]
-        public long Id { get; set; }
+        public long MovieId { get; set; }
 
         [MaxLength(150)]
         [Required]
         public string MovieTitle { get; set; }
-        [Required]
-        public List<Actor> Actors { get; set; } = new List<Actor>();
 
         [MaxLength(50)]
         [Required]
@@ -34,14 +37,18 @@ namespace TheMovieVerse.Model
         [Required]
         public string MovieGenre { get; set; }
 
-       
-
         [Required]
         public int MovieRating { get; set; }
+
         [Required]
         public bool IsUpcoming { get; set; }
+
         [Required]
         public string MovieDuration { get; set; }
+
+        public virtual ICollection<MovieActor> MovieActors { get; set; }
+
+        public List<ShowSchedule> ShowSchedules { get; set; } = new List<ShowSchedule>();
 
     }
 }
