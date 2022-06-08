@@ -39,16 +39,27 @@ namespace TheMovieVerse.Services.Implementation
             var MovieList = _mapper.Map<MovieView>(movie);
             return MovieList;
         }
-        public async Task<List<MovieView>> GetAll()
+        public async Task<List<MovieViewDetails>> GetAll()
         {
             var moviesModel = await _movieDbContext.Movies
                 .Include(x => x.ShowSchedules)
                 .Include(y => y.MovieActors)
                 .ThenInclude(j => j.Actor)
                 .ToListAsync();
-            var MovieList = _mapper.Map<List<MovieView>>(moviesModel);
+            var MovieList = _mapper.Map<List<MovieViewDetails>>(moviesModel);
             return MovieList;
         }
+
+        public async Task<List<MovieScheduleView>> GetMovieSchedule()
+        {
+            var moviesModel = await _movieDbContext.Movies
+                .Include(x => x.ShowSchedules)
+                .ToListAsync();
+            var MovieList = _mapper.Map<List<MovieScheduleView>>(moviesModel);
+            return MovieList;
+        }
+
+
         public async Task<List<MovieTitleView>> GetMovieByLanguage(string MovieLanguage)
         {
             var movie = await _movieDbContext.Movies

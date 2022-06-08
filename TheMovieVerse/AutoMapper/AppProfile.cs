@@ -10,6 +10,8 @@ namespace TheMovieVerse.AutoMapper
         {
             CreateMap<MovieView, Movie>().ReverseMap();
             CreateMap<MovieTitleView, Movie>().ReverseMap();
+            CreateMap<MovieViewDetails, Movie>().ReverseMap();
+            CreateMap<MovieScheduleView, Movie>().ReverseMap();
             CreateMap<MovieDetailView, Movie>().ReverseMap();
             CreateMap<EditMovieView, Movie>().ReverseMap();
             CreateMap<TheatreView, Theatre>().ReverseMap();

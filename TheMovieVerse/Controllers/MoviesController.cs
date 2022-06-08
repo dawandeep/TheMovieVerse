@@ -31,7 +31,7 @@ namespace TheMovieVerse.Controllers
 
 
         [HttpGet("GetAllMovies")]
-        public async Task<ActionResult<List<MovieView>>> GetMovies()
+        public async Task<ActionResult<List<MovieViewDetails>>> GetMovies()
         {
             try
             {
@@ -43,7 +43,21 @@ namespace TheMovieVerse.Controllers
             }
          }
 
-        
+
+        [HttpGet("GetMovieSchedule")]
+        public async Task<ActionResult<List<MovieScheduleView>>> GetMovieSchedule()
+        {
+            try
+            {
+                return await _movieService.GetMovieSchedule();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error while connecting to the database");
+            }
+        }
+
+
         [HttpGet("GetMovieByLanguage/{MovieLanguage}")]
         public async Task<ActionResult<List<MovieTitleView>>> GetMovieByLanguage(string MovieLanguage)
         {
