@@ -139,11 +139,36 @@ namespace TheMovieVerse.Controllers
         }
 
 
-        [HttpPut("UpdateMovieUsingId{id}")]
-        public async Task<long> PutMovie(EditMovieView movie)
+        [HttpPut("UpdateMovieUsingId/{id}")]
+        public async Task<long> PutMovieHere(long id, [FromBody] EditMovieView movie
+            )
         {
-            long mid = await _movieService.PutMovie(movie);
-            return mid;
+            var movieModel = _mapper.Map<Movie>(movie);
+            if (id != movieModel.MovieId)
+            {
+                ModelState.AddModelError("Id", "Invalid Id");
+            }
+
+
+            _context.Entry(movieModel).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MovieExists(id))
+                {
+                    return 0;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return movieModel.MovieId;
         }
 
 
@@ -217,6 +242,11 @@ namespace TheMovieVerse.Controllers
             }
             
         }
-       
+
+        private bool MovieExists(long id)
+        {
+            return _context.Movies.Any(e => e.MovieId == id);
+        }
+
     }
 }
