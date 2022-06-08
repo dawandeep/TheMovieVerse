@@ -27,8 +27,8 @@ namespace TheMovieVerse.Services.Implementation
         public async Task<MovieView> DeleteMovie(long id)
         {
             var movie = await _movieDbContext.Movies
-                .Include(x => x.Actors)
-                .Where(x => x.Id == id)
+                .Include(x => x.MovieActors)
+                .Where(x => x.MovieId == id)
                 .FirstOrDefaultAsync();
             if (movie==null)
             {
@@ -41,8 +41,10 @@ namespace TheMovieVerse.Services.Implementation
         }
         public async Task<List<MovieView>> GetAll()
         {
-            var moviesModel=await _movieDbContext.Movies
-                .Include(x=>x.Actors)
+            var moviesModel = await _movieDbContext.Movies
+                .Include(x => x.ShowSchedules)
+                .Include(y => y.MovieActors)
+                .ThenInclude(j => j.Actor)
                 .ToListAsync();
             var MovieList = _mapper.Map<List<MovieView>>(moviesModel);
             return MovieList;
@@ -60,7 +62,7 @@ namespace TheMovieVerse.Services.Implementation
         public async Task<List<MovieTitleView>> GetMovieByGenre(string MovieGenre)
         {
             var movie = await _movieDbContext.Movies
-                .Include(x => x.Actors)
+                .Include(x => x.MovieActors)
                 .Where(x => x.MovieGenre == MovieGenre)
                 .ToListAsync();
             var MovieList = _mapper.Map<List<MovieTitleView>>(movie);
@@ -68,7 +70,7 @@ namespace TheMovieVerse.Services.Implementation
         }
         public async Task<List<MovieDetailView>> GetMovieByName(string MovieTitle){
            var movie = await _movieDbContext.Movies
-                .Include(x => x.Actors)
+                .Include(x => x.MovieActors)
                 .Where(x => x.MovieTitle == MovieTitle)
                 .ToListAsync();
             var MovieList = _mapper.Map<List<MovieDetailView>>(movie);
@@ -78,8 +80,8 @@ namespace TheMovieVerse.Services.Implementation
         public async Task<List<MovieDetailView>>GetMovieById(long movieId)
         {
               var movie = await _movieDbContext.Movies
-                    .Include(x => x.Actors)
-                    .Where(x => x.Id == movieId)
+                    .Include(x => x.MovieActors)
+                    .Where(x => x.MovieId == movieId)
                     .ToListAsync();
                 var MovieList = _mapper.Map<List<MovieDetailView>>(movie);
                 return MovieList;
@@ -109,27 +111,11 @@ namespace TheMovieVerse.Services.Implementation
             _movieDbContext.Movies.Update(movieModel);
             return await _movieDbContext.SaveChangesAsync();
         }
-        public async Task<long>Putt(long id,Movie movie)
-        {
-            var existingStudent = _movieDbContext.Movies.Where(x=>x.Id == id)
-                                                    .FirstOrDefault<Movie>();
-
-            if (existingStudent != null)
-            {
-                existingStudent.MovieTitle = movie.MovieTitle;
-                existingStudent.MovieDirector = movie.MovieDirector;
-
-              return  await _movieDbContext.SaveChangesAsync();
-            }
-            else
-            {
-                return 0;
-            }
-        } 
+       
         public async Task<List<MovieDetailView>> GetUpcomingMovies()
         {
             var movie = await _movieDbContext.Movies
-                .Include(x => x.Actors)
+                .Include(x => x.MovieActors)
                 .Where(x => x.IsUpcoming == true)
                 .ToListAsync();
             var MovieList = _mapper.Map<List<MovieDetailView>>(movie);

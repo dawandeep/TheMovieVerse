@@ -17,7 +17,6 @@ namespace TheMovieVerse.Services.Interface
         public Task<Movie> PostMovie(MovieView movie);
         public Task<long> PutMovie(EditMovieView movie);
         public Task<MovieView> DeleteMovie(long id);
-        public Task<long> Putt(long id, Movie movie);
         public Task<List<MovieDetailView>> GetUpcomingMovies();
     }
 }

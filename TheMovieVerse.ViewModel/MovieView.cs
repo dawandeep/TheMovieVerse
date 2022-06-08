@@ -8,12 +8,14 @@ namespace TheMovieVerse.ViewModel
 {
     public class MovieView
     {
+        public MovieView()
+        {
+            this.MovieActors = new HashSet<MovieActorView>();
+        }
 
         [MaxLength(150)]
         [Required]
         public string MovieTitle { get; set; }
-        [Required]
-        public List<ActorView> Actors { get; set; } = new List<ActorView>();
 
         [MaxLength(50)]
         [Required]
@@ -31,14 +33,18 @@ namespace TheMovieVerse.ViewModel
         [Required]
         public string MovieGenre { get; set; }
 
-        
         [Required]
         public int MovieRating { get; set; }
+
         [Required]
         public bool IsUpcoming { get; set; }
+
         [Required]
         public string MovieDuration { get; set; }
 
+        public virtual ICollection<MovieActorView> MovieActors { get; set; }
+
+        public List<ShowScheduleView> ShowSchedules { get; set; } = new List<ShowScheduleView>();
     }
 }
 
