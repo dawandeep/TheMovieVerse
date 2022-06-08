@@ -10,7 +10,7 @@ namespace TheMovieVerse.Services.Interface
     public interface IMovieService
     {
         public Task<List<MovieDetailView>> GetMovieById(long movieId);
-        public Task<List<MovieView>> GetAll();
+        public Task<List<MovieViewDetails>> GetAll();
         public Task<List<MovieTitleView>> GetMovieByLanguage(string MovieLanguage);
         public Task<List<MovieTitleView>> GetMovieByGenre(string MovieGenre);
         public Task<List<MovieDetailView>> GetMovieByName(string MovieTitle);
@@ -18,5 +18,10 @@ namespace TheMovieVerse.Services.Interface
         public Task<long> PutMovie(EditMovieView movie);
         public Task<MovieView> DeleteMovie(long id);
         public Task<List<MovieDetailView>> GetUpcomingMovies();
+        public Task<List<MovieScheduleView>> GetMovieSchedule();
+
+
+
+
     }
 }
