@@ -10,7 +10,7 @@ namespace TheMovieVerse.ViewModel
       
         public string MovieTitle { get; set; }
         
-        public List<ActorView> Actors { get; set; } = new List<ActorView>();
+        
       
         public int MovieRating { get; set; }
       
